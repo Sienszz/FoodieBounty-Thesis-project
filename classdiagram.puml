@@ -1,0 +1,1985 @@
+@startuml
+set namespaceSeparator ::
+
+class "projek_skripsi::core::providers::cloud_messaging.dart::FirebaseMessagingAPI" {
+  {static} +String fcmToken
+  +dynamic initialized()
+  +dynamic sendPushMessage()
+  {static} +dynamic getDeviceTokenToSendNotification()
+}
+
+class "projek_skripsi::core::providers::cloud_messaging.dart::NotificationHelper" {
+  {static} +FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin
+  {static} +void initialized()
+  {static} +void displayNotification()
+}
+
+"projek_skripsi::core::providers::cloud_messaging.dart::NotificationHelper" o-- "flutter_local_notifications::src::flutter_local_notifications_plugin.dart::FlutterLocalNotificationsPlugin"
+
+class "projek_skripsi::core::providers::local_storage.dart::LocalStorage" {
+  +dynamic onSetUser()
+  +dynamic onGetUser()
+}
+
+class "projek_skripsi::core::models::m_level.dart::LevelModel" {
+  +List<Map<String, dynamic>>? voucherReward
+  +int? exp
+  +int? coinReward
+  +String? id
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel" {
+  +int? coin
+  +int? qty
+  +String? name
+  +String? description
+  +DateTime? expDate
+  +String? type
+  +int? minTransaction
+  +String? typeDiscount
+  +double? percentage
+  +int? maxNominal
+  +int? nominal
+  +String? id
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::core::models::m_customerVoucher.dart::CustomerVoucher" {
+  +String? voucherId
+  +DateTime? expDate
+  +DateTime? purchaseDate
+  +String? id
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::core::models::m_storeHistory.dart::StoreHistoryModel" {
+  +DateTime? date
+  +int? total
+  +String? voucherId
+  +String? customerId
+  +String? customerName
+  +String? id
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::core::models::m_storeMembership.dart::StoreMembershipModel" {
+  +String? address
+  +String? imgUrl
+  +String? name
+  +String? phoneNumber
+  +List<String>? tag
+  +String? email
+  +double? latitude
+  +double? longitude
+  +String? id
+  +int? level
+  +int? exp
+  +int? coin
+  +int? totalVoucher
+  +double distanceWithUser
+  +List<LevelModel>? lsLevelStore
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::core::const::app_function.dart::AppFunctions" {
+  +String encrypt()
+  +String decrypt()
+  +dynamic checkConnection()
+}
+
+class "projek_skripsi::core::const::app_assets.dart::AppAssets" {
+  {static} +String boarding
+  {static} +String sellerlogin
+  {static} +String buyerlogin
+  {static} +String buyerregister
+  {static} +String lock
+}
+
+class "projek_skripsi::core::const::app_themes.dart::AppThemes" {
+  {static} +Color darkBlue
+  {static} +Color blue
+  {static} +Color lightBlue
+  {static} +Color red
+  {static} +Color green
+  {static} +Color superLightBlue
+  {static} +Color white
+  {static} +Color black
+  {static} +Color veryDarkBlue
+  {static} +Color moreDarkBlue
+  {static} -Color _level1
+  {static} -Color _level2
+  {static} -Color _level3
+  {static} -Color _level4
+  {static} -Color _level5
+  {static} +Map<int, Color> levelColor
+  +double defaultFormHeight
+  +double minSpacing
+  +double defaultSpacing
+  +double biggerSpacing
+  +double extraSpacing
+  +double veryExtraSpacing
+  +TextStyle text1()
+  +TextStyle text2()
+  +TextStyle text3()
+  +TextStyle text4()
+  +TextStyle text5()
+  +TextStyle text6()
+  +TextStyle text7()
+  +TextStyle text1Bold()
+  +TextStyle text2Bold()
+  +TextStyle text3Bold()
+  +TextStyle text4Bold()
+  +TextStyle text5Bold()
+  +TextStyle text6Bold()
+}
+
+"projek_skripsi::core::const::app_themes.dart::AppThemes" o-- "dart::ui::Color"
+
+class "projek_skripsi::core::components::voucher_buyer_card.dart::VoucherBuyerCard" {
+  +RxMap<String, dynamic> data
+  +Widget build()
+}
+
+"projek_skripsi::core::components::voucher_buyer_card.dart::VoucherBuyerCard" o-- "get::get_rx::src::rx_types::rx_types.dart::RxMap<String, dynamic>"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::voucher_buyer_card.dart::VoucherBuyerCard"
+
+class "projek_skripsi::core::components::voucher_buyer_card.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::voucher_buyer_card.dart::DescText"
+
+class "projek_skripsi::core::components::form_component.dart::FormInputText" {
+  +String title
+  +int txtLine
+  +bool mandatory
+  +bool txtEnable
+  +bool txtReadonly
+  +TextInputType textInputType
+  +TextEditingController txtcontroller
+  +String? validatorMsg
+  +int? maxLength
+  +Widget build()
+}
+
+"projek_skripsi::core::components::form_component.dart::FormInputText" o-- "flutter::src::services::text_input.dart::TextInputType"
+"projek_skripsi::core::components::form_component.dart::FormInputText" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::form_component.dart::FormInputText"
+
+class "projek_skripsi::core::components::form_component.dart::FormInputEmail" {
+  +String title
+  +int txtLine
+  +bool mandatory
+  +bool txtEnable
+  +bool txtReadonly
+  +TextInputType textInputType
+  +TextEditingController txtcontroller
+  +String? validatorMsg
+  +int? maxLength
+  +Widget build()
+}
+
+"projek_skripsi::core::components::form_component.dart::FormInputEmail" o-- "flutter::src::services::text_input.dart::TextInputType"
+"projek_skripsi::core::components::form_component.dart::FormInputEmail" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::form_component.dart::FormInputEmail"
+
+class "projek_skripsi::core::components::form_component.dart::FormInputPassword" {
+  +String title
+  +int txtLine
+  +bool mandatory
+  +bool txtEnable
+  +bool txtReadonly
+  +TextInputType textInputType
+  +TextEditingController txtcontroller
+  +String? validatorMsg
+  +int? maxLength
+  +dynamic controller
+  +Widget build()
+}
+
+"projek_skripsi::core::components::form_component.dart::FormInputPassword" o-- "flutter::src::services::text_input.dart::TextInputType"
+"projek_skripsi::core::components::form_component.dart::FormInputPassword" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::form_component.dart::FormInputPassword"
+
+class "projek_skripsi::core::components::form_component.dart::FormInputConfirmPassword" {
+  +String title
+  +int txtLine
+  +bool mandatory
+  +bool txtEnable
+  +bool txtReadonly
+  +TextInputType textInputType
+  +TextEditingController txtcontroller
+  +String? validatorMsg
+  +int? maxLength
+  +dynamic controller
+  +Widget build()
+}
+
+"projek_skripsi::core::components::form_component.dart::FormInputConfirmPassword" o-- "flutter::src::services::text_input.dart::TextInputType"
+"projek_skripsi::core::components::form_component.dart::FormInputConfirmPassword" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::form_component.dart::FormInputConfirmPassword"
+
+class "projek_skripsi::core::components::form_component.dart::FormInputAddress" {
+  +String title
+  +int txtLine
+  +bool mandatory
+  +bool txtEnable
+  +bool txtReadonly
+  +TextInputType textInputType
+  +TextEditingController txtcontroller
+  +String? validatorMsg
+  +int? maxLength
+  +dynamic controller
+  +Widget build()
+}
+
+"projek_skripsi::core::components::form_component.dart::FormInputAddress" o-- "flutter::src::services::text_input.dart::TextInputType"
+"projek_skripsi::core::components::form_component.dart::FormInputAddress" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::form_component.dart::FormInputAddress"
+
+class "projek_skripsi::core::components::form_component.dart::FormInputDate" {
+  +String title
+  +int txtLine
+  +bool mandatory
+  +bool txtEnable
+  +bool txtReadonly
+  +TextInputType textInputType
+  +TextEditingController txtcontroller
+  +String? validatorMsg
+  +int? maxLength
+  +dynamic controller
+  +Widget build()
+}
+
+"projek_skripsi::core::components::form_component.dart::FormInputDate" o-- "flutter::src::services::text_input.dart::TextInputType"
+"projek_skripsi::core::components::form_component.dart::FormInputDate" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::form_component.dart::FormInputDate"
+
+class "projek_skripsi::core::components::search_component.dart::SearchingBar" {
+  +DashboardBuyerController? dashboardController
+  +VoucherBuyerController? voucherController
+  +void filterSearch()
+  +Widget build()
+}
+
+"projek_skripsi::core::components::search_component.dart::SearchingBar" o-- "projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController"
+"projek_skripsi::core::components::search_component.dart::SearchingBar" o-- "projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::search_component.dart::SearchingBar"
+
+class "projek_skripsi::core::components::generateQR_component.dart::GenerateQRComponent" {
+  +String data
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::generateQR_component.dart::GenerateQRComponent"
+
+class "projek_skripsi::core::components::dialog_component.dart::DialogComponent" {
+  +dynamic onShowLoading()
+  +dynamic onLoadingDismissible()
+  +dynamic popupTransaction()
+  +dynamic popupLevelUp()
+  +dynamic popupReward()
+  +dynamic onShowModalBottomSheet()
+  +dynamic onShowDetailVoucher()
+}
+
+class "projek_skripsi::core::components::dialog_component.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::dialog_component.dart::DescText"
+
+class "projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController" {
+  +RxDouble latitude
+  +RxDouble longitude
+  +RxString address
+  +MapController mapController
+  +dynamic onLocationPermission()
+  +dynamic getCurrentPosition()
+  +dynamic getAddressFromLatLng()
+  +dynamic handlePosition()
+}
+
+"projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxDouble"
+"projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController" o-- "flutter_map::src::map::controller::map_controller.dart::MapController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController"
+
+class "projek_skripsi::core::components::map::views::maps_page.dart::MapsPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::map::views::maps_page.dart::MapsPage"
+
+class "projek_skripsi::core::components::image_component.dart::ImageComponent" {
+  +dynamic onShowImagePicker()
+}
+
+class "projek_skripsi::core::components::image_component.dart::TopModalBottom" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::image_component.dart::TopModalBottom"
+
+class "projek_skripsi::core::components::scanner::controllers::scanner_controller.dart::QRScannerController" {
+  +Barcode? result
+  +QRViewController? controller
+  +RxBool isFlash
+  +GlobalKey<State<StatefulWidget>> qrKey
+  +void onQRViewCreated()
+  +void clickFlash()
+}
+
+"projek_skripsi::core::components::scanner::controllers::scanner_controller.dart::QRScannerController" o-- "qr_code_scanner::src::types::barcode.dart::Barcode"
+"projek_skripsi::core::components::scanner::controllers::scanner_controller.dart::QRScannerController" o-- "qr_code_scanner::src::qr_code_scanner.dart::QRViewController"
+"projek_skripsi::core::components::scanner::controllers::scanner_controller.dart::QRScannerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::core::components::scanner::controllers::scanner_controller.dart::QRScannerController" o-- "flutter::src::widgets::framework.dart::GlobalKey<State<StatefulWidget>>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::core::components::scanner::controllers::scanner_controller.dart::QRScannerController"
+
+class "projek_skripsi::core::components::scanner::views::scanner_page.dart::QRScanner" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::scanner::views::scanner_page.dart::QRScanner"
+
+class "projek_skripsi::core::components::splash_screen.dart::SplashScreenPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::core::components::splash_screen.dart::SplashScreenPage"
+
+class "projek_skripsi::utils::routes.dart::AppRoutes" {
+  {static} +String onBoarding
+  {static} +String splashscreen
+  {static} +String appInfo
+  {static} +String sellerlogin
+  {static} +String sellerregister
+  {static} +String sellerdashboard
+  {static} +String sellerscan
+  {static} +String sellerstore
+  {static} +String sellereditstore
+  {static} +String sellerhistory
+  {static} +String sellerleveling
+  {static} +String sellercreateleveling
+  {static} +String sellerallvoucher
+  {static} +String sellercreatevoucher
+  {static} +String buyerlogin
+  {static} +String buyerregister
+  {static} +String buyerBarcode
+  {static} +String buyerDashboard
+  {static} +String expandMoreStore
+  {static} +String selectedStore
+  {static} +String buyerEditStore
+  {static} +String voucherBuyer
+  {static} +String expandCategoryStore
+  {static} +String dashboardSearchStore
+}
+
+class "projek_skripsi::utils::pages.dart::AppPages" {
+  {static} +List<GetPage<dynamic>> pages
+}
+
+class "projek_skripsi::utils::lang::id.dart::Id" {
+  +Map<String, String> messages
+}
+
+class "projek_skripsi::utils::lang::en.dart::En" {
+  +Map<String, String> messages
+}
+
+class "projek_skripsi::utils::lang::localization.dart::Localization" {
+  +Map<String, Map<String, String>> keys
+}
+
+"get::get_navigation::src::root::internacionalization.dart::Translations" <|-- "projek_skripsi::utils::lang::localization.dart::Localization"
+
+class "projek_skripsi::main.dart::MyApp" {
+  +AuthController authController
+  +Widget build()
+}
+
+"projek_skripsi::main.dart::MyApp" o-- "projek_skripsi::authorization::modules::login::controllers::auth_controller.dart::AuthController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::main.dart::MyApp"
+
+class "projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" {
+  +GlobalKey<FormState> formKey
+  +RxString errorMsg
+  +TextEditingController fieldName
+  +TextEditingController fieldEmail
+  +TextEditingController fieldPassword
+  +TextEditingController fieldConfirmPassword
+  +TextEditingController fieldPhoneNumber
+  +TextEditingController fieldAddress
+  +TextEditingController fieldTag
+  +MapsController mapController
+  +SellerAttachmentController attController
+  +DashboardSellerController dashboardController
+  +RxList<dynamic> lsTag
+  +void onInit()
+  +void initTag()
+  +void onInitForm()
+  +void onSave()
+  +dynamic saveToCloudFirestore()
+  +void onGetAddress()
+  +bool isTagValidate()
+  +List<dynamic> getTag()
+}
+
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController"
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController"
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController"
+"projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<dynamic>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page.dart::EditStorePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page.dart::EditStorePage"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::EditStorePageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::EditStorePageBody"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::ImageForm" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::ImageForm"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::Photo" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::Photo"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::TagForm" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::TagForm"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::TagItem" {
+  +String title
+  +bool isClick
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::TagItem"
+
+class "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::SubmitButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::edit_store::views::screens::edit_store_page_body.dart::SubmitButton"
+
+class "projek_skripsi::application::seller::edit_store::views::widgets::dialog_widget.dart::DialogWidget" {
+  +EditStoreController controller
+  +dynamic onConfirmPassword()
+}
+
+"projek_skripsi::application::seller::edit_store::views::widgets::dialog_widget.dart::DialogWidget" o-- "projek_skripsi::application::seller::edit_store::controllers::edit_store_controller.dart::EditStoreController"
+
+class "projek_skripsi::application::seller::leveling::controllers::leveling_seller_controller.dart::LevelingSellerController" {
+  +List<Color> levelColors
+  +RxBool isLoading
+  +RxList<LevelModel> lsLevel
+  +void onInit()
+  +dynamic onGetLevelData()
+}
+
+"projek_skripsi::application::seller::leveling::controllers::leveling_seller_controller.dart::LevelingSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::seller::leveling::controllers::leveling_seller_controller.dart::LevelingSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<LevelModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::leveling::controllers::leveling_seller_controller.dart::LevelingSellerController"
+
+class "projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" {
+  +Map<dynamic, dynamic> arguments
+  +GlobalKey<FormState> formKey
+  +String title
+  +RxString selectedReward
+  +RxBool isLoading
+  +RxString errorMsg
+  +TextEditingController fieldExp
+  +TextEditingController fieldCoin
+  +RxList<Widget> lsRewardWidget
+  +RxList<dynamic> lsFieldReward
+  +RxList<StoreVoucherModel> lsStoreVoucher
+  +void onInit()
+  +dynamic onGetSpecialVoucher()
+  +dynamic onInitForm()
+  +void addReward()
+  +void removeReward()
+  +void onSave()
+}
+
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<Widget>"
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<dynamic>"
+"projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreVoucherModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::leveling::controllers::create_level_controller.dart::CreateLevelController"
+
+class "projek_skripsi::application::seller::leveling::views::screens::leveling_page.dart::SellerLevelingPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::leveling::views::screens::leveling_page.dart::SellerLevelingPage"
+
+class "projek_skripsi::application::seller::leveling::views::screens::create_level_page.dart::CreateLevelPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::leveling::views::screens::create_level_page.dart::CreateLevelPage"
+
+class "projek_skripsi::application::seller::leveling::views::screens::create_level_page.dart::SaveButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::leveling::views::screens::create_level_page.dart::SaveButton"
+
+class "projek_skripsi::application::seller::leveling::views::screens::leveling_home_page.dart::LevelingHomePage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::leveling::views::screens::leveling_home_page.dart::LevelingHomePage"
+
+class "projek_skripsi::application::seller::leveling::views::widgets::dialog_widget.dart::DialogWidget" {
+  +dynamic onChooseReward()
+}
+
+class "projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::LevelingCard" {
+  +String title
+  +Color color
+  +LevelModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::LevelingCard" o-- "dart::ui::Color"
+"projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::LevelingCard" o-- "projek_skripsi::core::models::m_level.dart::LevelModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::LevelingCard"
+
+class "projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::VoucherField" {
+  +int index
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::VoucherField"
+
+class "projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::CoinField" {
+  +int index
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::leveling::views::widgets::card_widget.dart::CoinField"
+
+class "projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" {
+  +TabController? tabsController
+  +GlobalKey<FormState> formkey
+  +RxBool isLoading
+  +RxBool fieldisDelete
+  +RxBool isCheckDiscount
+  +RxBool isCheckMaxDisc
+  +TextEditingController fieldName
+  +TextEditingController fieldDesc
+  +TextEditingController fieldQty
+  +TextEditingController fieldMinTransaction
+  +TextEditingController fieldCoin
+  +TextEditingController fieldExpDate
+  +TextEditingController fieldPercentage
+  +TextEditingController fieldNominal
+  +RxString fieldType
+  +RxString fieldTypeDiscount
+  +RxList<StoreVoucherModel> lsVoucher
+  +List<String> typeDiscount
+  +List<String> types
+  +List<Tab> tabs
+  +void onInit()
+  +void addVoucher()
+  +dynamic onGetDataVoucher()
+  +dynamic onDeleteVoucher()
+  +void onRefreshPage()
+  +void saveToCloudFirestore()
+  +void reuseVoucher()
+}
+
+"projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" o-- "flutter::src::material::tab_controller.dart::TabController"
+"projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreVoucherModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::seller::all_voucher::controllers::all_voucher_controller.dart::AllVoucherController"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::all_voucher_page_body.dart::AllVoucherPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::all_voucher_page_body.dart::AllVoucherPageBody"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::create_voucher_page.dart::CreateVoucherPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::create_voucher_page.dart::CreateVoucherPage"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::create_voucher_page.dart::SubmitButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::create_voucher_page.dart::SubmitButton"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::all_voucher_page.dart::AllVoucherPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::all_voucher_page.dart::AllVoucherPage"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::coupons::special_coupon_page.dart::SpecialCouponPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::coupons::special_coupon_page.dart::SpecialCouponPage"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::coupons::expired_coupon_page.dart::ExpiredCouponPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::coupons::expired_coupon_page.dart::ExpiredCouponPage"
+
+class "projek_skripsi::application::seller::all_voucher::views::screens::coupons::public_coupon_page.dart::PublicCouponPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::screens::coupons::public_coupon_page.dart::PublicCouponPage"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::DialogWidget" {
+  +dynamic onConfirm()
+  +dynamic onShowLoading()
+  +dynamic onDeleteConfirm()
+}
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::TopModalBottom" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::TopModalBottom"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::EditButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::EditButton"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::ConfirmButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::dialog_widget.dart::ConfirmButton"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::card_widget.dart::CouponCard" {
+  +Widget widget
+  +StoreVoucherModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::all_voucher::views::widgets::card_widget.dart::CouponCard" o-- "flutter::src::widgets::framework.dart::Widget"
+"projek_skripsi::application::seller::all_voucher::views::widgets::card_widget.dart::CouponCard" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::card_widget.dart::CouponCard"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::card_widget.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::card_widget.dart::DescText"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::DropdownType" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::DropdownType"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::DropdownTypeDiscount" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::DropdownTypeDiscount"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::FormPercentage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::FormPercentage"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::FormNominal" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::form_component.dart::FormNominal"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessCreateVoucher" {
+  +StoreVoucherModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessCreateVoucher" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessCreateVoucher"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherHeader" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherHeader"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherBody" {
+  +StoreVoucherModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherBody" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherBody"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherFooter" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::SuccessVoucherFooter"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::DetailList" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::DetailList"
+
+class "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::Separator" {
+  +double height
+  +Color color
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::Separator" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::all_voucher::views::widgets::success_create_voucher.dart::Separator"
+
+class "projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" {
+  +Map<dynamic, dynamic> arguments
+  +RxBool isLoading
+  +RxBool isLoadingDetailVoucher
+  +RxString errorMsg
+  +Rx<BuyerModel> customer
+  +Rx<CustomerVoucher> customerVoucher
+  +Rx<StoreVoucherModel> voucher
+  +Rx<StoreModel> store
+  +GlobalKey<FormState> formKey
+  +TextEditingController fieldTotal
+  +TextEditingController fieldVoucherId
+  +void onInit()
+  +dynamic onGetCustomer()
+  +void scanBarcode()
+  +dynamic onGetCustomerVoucher()
+  +dynamic onGetVoucher()
+  +dynamic onGetStore()
+  +void onConfirm()
+  +int? calculateDiscount()
+}
+
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<BuyerModel>"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<CustomerVoucher>"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<StoreVoucherModel>"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<StoreModel>"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::scan::controllers::scan_seller_controller.dart::ScanSellerController"
+
+class "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::ScanPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::ScanPageBody"
+
+class "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::Percentage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::Percentage"
+
+class "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::Nominal" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::Nominal"
+
+class "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::ConfirmButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::scan::views::screens::scan_page_body.dart::ConfirmButton"
+
+class "projek_skripsi::application::seller::scan::views::screens::scan_page.dart::SellerScanPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::screens::scan_page.dart::SellerScanPage"
+
+class "projek_skripsi::application::seller::scan::views::widgets::components.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::components.dart::DescText"
+
+class "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessful" {
+  +StoreVoucherModel voucher
+  +DateTime time
+  +String customerName
+  +int totalPurchase
+  +int discount
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessful" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessful"
+
+class "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulHeader" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulHeader"
+
+class "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulBody" {
+  +StoreVoucherModel voucher
+  +DateTime time
+  +String customerName
+  +int totalPurchase
+  +int discount
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulBody" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulBody"
+
+class "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulFooter" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::TransactionSuccessfulFooter"
+
+class "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::DetailList" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::DetailList"
+
+class "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::Separator" {
+  +double height
+  +Color color
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::Separator" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::scan::views::widgets::transaction_succesful.dart::Separator"
+
+class "projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" {
+  +RxInt currentIndex
+  +RxBool isLoadingUser
+  +RxBool isLoadingCoupon
+  +RxBool isLoadingLevel
+  +Rx<StoreModel> user
+  +TabController? tabsController
+  +List<Widget> tabsPage
+  +List<Tab> tabs
+  +List<Color> levelColors
+  +RxList<LevelModel> lsLevel
+  +RxList<StoreVoucherModel> lsVoucher
+  +void onInit()
+  +void onItemTapped()
+  +void onScan()
+  +dynamic onGetDataVoucher()
+  +dynamic assignUser()
+  +dynamic onGetDataLevel()
+  +void onRefreshPage()
+}
+
+"projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<StoreModel>"
+"projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" o-- "flutter::src::material::tab_controller.dart::TabController"
+"projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<LevelModel>"
+"projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreVoucherModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController"
+
+class "projek_skripsi::application::seller::dashboard::views::screens::dashboard_navigation.dart::SellerDashboardNavigation" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::dashboard::views::screens::dashboard_navigation.dart::SellerDashboardNavigation"
+
+class "projek_skripsi::application::seller::dashboard::views::screens::coupons::special_coupon_page.dart::SpecialCouponPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::dashboard::views::screens::coupons::special_coupon_page.dart::SpecialCouponPage"
+
+class "projek_skripsi::application::seller::dashboard::views::screens::coupons::public_coupon_page.dart::PublicCouponPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::dashboard::views::screens::coupons::public_coupon_page.dart::PublicCouponPage"
+
+class "projek_skripsi::application::seller::dashboard::views::screens::dashboard_page_header.dart::DashboardPageHeader" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::dashboard::views::screens::dashboard_page_header.dart::DashboardPageHeader"
+
+class "projek_skripsi::application::seller::dashboard::views::screens::dashboard_page_body.dart::DashboardPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::dashboard::views::screens::dashboard_page_body.dart::DashboardPageBody"
+
+class "projek_skripsi::application::seller::dashboard::views::screens::dashboard_page.dart::SellerDashboardPage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::dashboard::views::screens::dashboard_page.dart::SellerDashboardPage"
+
+class "projek_skripsi::application::seller::dashboard::views::widgets::dialog_widget.dart::DialogWidget" {
+  +dynamic onShowDetailLevel()
+}
+
+class "projek_skripsi::application::seller::dashboard::views::widgets::leveling_widget.dart::LevelingWidget" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::dashboard::views::widgets::leveling_widget.dart::LevelingWidget"
+
+class "projek_skripsi::application::seller::dashboard::views::widgets::card_widget.dart::CouponCard" {
+  +StoreVoucherModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::dashboard::views::widgets::card_widget.dart::CouponCard" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::dashboard::views::widgets::card_widget.dart::CouponCard"
+
+class "projek_skripsi::application::seller::dashboard::views::widgets::card_widget.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::dashboard::views::widgets::card_widget.dart::DescText"
+
+class "projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController" {
+  +TabController? tabsController
+  +DashboardSellerController dashboardController
+  +List<Tab> tabs
+  +RxBool isLoading
+  +RxList<StoreHistoryModel> lsHistory
+  +RxList<StoreHistoryModel> lsHistoryWithCoupon
+  +RxList<StoreHistoryModel> lsHistoryWithoutCoupon
+  +void onInit()
+  +dynamic onGetHistory()
+  +dynamic onGetHistoryWithCoupon()
+  +dynamic onGetHistoryWithoutCoupon()
+}
+
+"projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController" o-- "flutter::src::material::tab_controller.dart::TabController"
+"projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController" o-- "projek_skripsi::application::seller::dashboard::controllers::dashboard_seller_controller.dart::DashboardSellerController"
+"projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreHistoryModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::seller::history::controllers::history_seller_controller.dart::HistorySellerController"
+
+class "projek_skripsi::application::seller::history::views::screens::history_page.dart::SellerHistoryPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::history::views::screens::history_page.dart::SellerHistoryPage"
+
+class "projek_skripsi::application::seller::history::views::screens::history_page_body.dart::HistoryPageBody" {
+  +List<StoreHistoryModel> lsData
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::history::views::screens::history_page_body.dart::HistoryPageBody"
+
+class "projek_skripsi::application::seller::history::views::widgets::card_widget.dart::HistoryCard" {
+  +StoreHistoryModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::seller::history::views::widgets::card_widget.dart::HistoryCard" o-- "projek_skripsi::core::models::m_storeHistory.dart::StoreHistoryModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::history::views::widgets::card_widget.dart::HistoryCard"
+
+class "projek_skripsi::application::seller::history::views::widgets::card_widget.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::history::views::widgets::card_widget.dart::DescText"
+
+class "projek_skripsi::application::seller::store::controllers::store_seller_controller.dart::StoreSellerController" {
+  +Rx<StoreModel> user
+  +RxBool isLoading
+  +void onInit()
+  +void logout()
+  +dynamic assignUser()
+}
+
+"projek_skripsi::application::seller::store::controllers::store_seller_controller.dart::StoreSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<StoreModel>"
+"projek_skripsi::application::seller::store::controllers::store_seller_controller.dart::StoreSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::seller::store::controllers::store_seller_controller.dart::StoreSellerController"
+
+class "projek_skripsi::application::seller::store::views::screens::store_page_header.dart::StorePageHeader" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::store::views::screens::store_page_header.dart::StorePageHeader"
+
+class "projek_skripsi::application::seller::store::views::screens::store_page.dart::StorePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::store::views::screens::store_page.dart::StorePage"
+
+class "projek_skripsi::application::seller::store::views::screens::store_page_body.dart::StorePageBody" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::store::views::screens::store_page_body.dart::StorePageBody"
+
+class "projek_skripsi::application::seller::store::views::screens::store_page_body.dart::ContainerMenu" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::seller::store::views::screens::store_page_body.dart::ContainerMenu"
+
+class "projek_skripsi::application::seller::store::views::screens::store_page_body.dart::LogoutButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::seller::store::views::screens::store_page_body.dart::LogoutButton"
+
+class "projek_skripsi::application::app_informaton::views::app_information_page_body.dart::AppInformationPageBody" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::app_informaton::views::app_information_page_body.dart::AppInformationPageBody"
+
+class "projek_skripsi::application::app_informaton::views::app_information_page.dart::AppInformationPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::app_informaton::views::app_information_page.dart::AppInformationPage"
+
+class "projek_skripsi::application::boarding::views::boarding_page.dart::BoardingPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::boarding::views::boarding_page.dart::BoardingPage"
+
+class "projek_skripsi::application::boarding::views::boarding_page.dart::BoardingHeader" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::boarding::views::boarding_page.dart::BoardingHeader"
+
+class "projek_skripsi::application::boarding::views::boarding_page.dart::BoardingBody" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::boarding::views::boarding_page.dart::BoardingBody"
+
+class "projek_skripsi::application::buyer::edit_account::controllers::edit_account_controller.dart::EditAccountController" {
+  +GlobalKey<FormState> formKey
+  +TextEditingController fieldName
+  +TextEditingController fieldEmail
+  +TextEditingController fieldPassword
+  +TextEditingController fieldConfirmPassword
+  +TextEditingController fieldPhoneNumber
+  +BuyerAttachmentController attController
+  +DashboardBuyerController dashboardController
+  +void onInit()
+  +void onInitForm()
+  +void onSave()
+  +dynamic saveToCloudFirestore()
+}
+
+"projek_skripsi::application::buyer::edit_account::controllers::edit_account_controller.dart::EditAccountController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::application::buyer::edit_account::controllers::edit_account_controller.dart::EditAccountController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"projek_skripsi::application::buyer::edit_account::controllers::edit_account_controller.dart::EditAccountController" o-- "projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController"
+"projek_skripsi::application::buyer::edit_account::controllers::edit_account_controller.dart::EditAccountController" o-- "projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::buyer::edit_account::controllers::edit_account_controller.dart::EditAccountController"
+
+class "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::EditBuyerPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::EditBuyerPageBody"
+
+class "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::ImageForm" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::ImageForm"
+
+class "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::Photo" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::Photo"
+
+class "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::SubmitButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page_body.dart::SubmitButton"
+
+class "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page.dart::EditBuyerPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::edit_account::views::edit_buyer_page.dart::EditBuyerPage"
+
+class "projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" {
+  +Map<dynamic, dynamic> arguments
+  +TabController? tabsController
+  +RxDouble valueLevel
+  +RxString storeId
+  +RxString userId
+  +RxBool isOpen
+  +RxBool isLoading
+  +RxBool isLoadingCoupon
+  +Rx<StoreMembershipModel> storeMembership
+  +List<RxMap<String, dynamic>> lsMergeVoucher
+  +List<Tab> tabs
+  +RxList<StoreVoucherModel> lsVoucher
+  +RxList<CustomerVoucher> lsCustomerVoucher
+  +void onInit()
+  +dynamic onGetDataVoucher()
+  +void onBuyVoucher()
+  +Stream<dynamic> streamData()
+  +dynamic updateTransactionSuccessfull()
+  +dynamic onGetReward()
+}
+
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "flutter::src::material::tab_controller.dart::TabController"
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxDouble"
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<StoreMembershipModel>"
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreVoucherModel>"
+"projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<CustomerVoucher>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::buyer::dashboard::controllers::store_detail_controller.dart::StoreDetailController"
+
+class "projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" {
+  +RxInt currentIndex
+  +RxInt activePage
+  +RxString ExpandMoreStoreTitle
+  +RxBool isLoadingUser
+  +Rx<BuyerModel> user
+  +RxString wordTextField
+  +RxBool isOpen
+  +Rx<Position> currentLocation
+  +List<StatelessWidget> tabsPage
+  +List<Image> images
+  +List<Image> lsImage
+  +RxList<StoreModel> lsStore
+  +RxList<StoreMembershipModel> lsStoreMembership
+  +RxList<StoreMembershipModel> lsFilterStore
+  +List<StoreMembershipModel> lsFilter
+  +RxList<LevelModel> lsLevel
+  +RxList<StoreMembershipModel> lsStoreRice
+  +RxList<StoreMembershipModel> lsStoreNoodles
+  +RxList<StoreMembershipModel> lsStoreSeaFood
+  +RxList<StoreMembershipModel> lsStoreMeat
+  +RxList<StoreMembershipModel> lsStoreVegetables
+  +RxList<StoreMembershipModel> lsStoreFastFood
+  +RxList<StoreMembershipModel> lsStorePastry
+  +RxList<StoreMembershipModel> lsStoreSweets
+  +RxList<StoreMembershipModel> lsStoreNuts
+  +RxList<StoreMembershipModel> lsStoreSnacks
+  +RxList<StoreMembershipModel> lsStoreCoffee
+  +RxList<StoreMembershipModel> lsStoreBeverages
+  +void onInit()
+  +void onItemTapped()
+  +dynamic refreshData()
+  +dynamic assignUser()
+  +dynamic onInitMembership()
+  +dynamic onGetDataStore()
+  +dynamic onGetDataStoreMembership()
+  +dynamic onInitNearbyStore()
+  +dynamic onGetDataLevel()
+  +void onCompleteData()
+  +void onInitStoreCategory()
+  +void sortNearby()
+  +double getDistance()
+  +dynamic onCheckResetLevel()
+  +Stream<dynamic> streamData()
+  +dynamic updateTransactionSuccessfull()
+  +bool isLevelUp()
+}
+
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<BuyerModel>"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<Position>"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreModel>"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreMembershipModel>"
+"projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<LevelModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::buyer::dashboard::controllers::dashboard_buyer_controller.dart::DashboardBuyerController"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_navigation.dart::BuyerDashboardNavigation" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_navigation.dart::BuyerDashboardNavigation"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::coupons::coupon_selected_store.dart::CouponStorePage" {
+  +dynamic selectedTab
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::coupons::coupon_selected_store.dart::CouponStorePage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_page_body.dart::BuyserDashboardBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_page_body.dart::BuyserDashboardBody"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_page_body.dart::Category" {
+  +String title
+  +String assetImg
+  +List<StoreMembershipModel> list
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_page_body.dart::Category"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_page.dart::BuyerDashboardPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::dashboard_page.dart::BuyerDashboardPage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::selected_store_body.dart::SelectedStoreBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::selected_store_body.dart::SelectedStoreBody"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::selected_store_header.dart::SelectedStoreHeader" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::selected_store_header.dart::SelectedStoreHeader"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::search_store_dashboard_page.dart::SearchStoreDashboardPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::search_store_dashboard_page.dart::SearchStoreDashboardPage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::category_store_page.dart::CategoryStorePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::category_store_page.dart::CategoryStorePage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::nearby_store_page.dart::NearbyStorePage" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::nearby_store_page.dart::NearbyStorePage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::selected_store_page.dart::SelectedStorePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::selected_store_page.dart::SelectedStorePage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::expand_store_page_body.dart::MoreExpandStorePageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::expand_store_page_body.dart::MoreExpandStorePageBody"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::category_store_page_body.dart::CategoryStorePageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::category_store_page_body.dart::CategoryStorePageBody"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::expand_store_page.dart::MoreExpandStorePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::expand_store_page.dart::MoreExpandStorePage"
+
+class "projek_skripsi::application::buyer::dashboard::views::screens::store::search_store_dashboard_page_body.dart::SearchStoreDashboardPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::screens::store::search_store_dashboard_page_body.dart::SearchStoreDashboardPageBody"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::card_expand_store_widget.dart::StoreExpandCard" {
+  +StoreMembershipModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::dashboard::views::widgets::card_expand_store_widget.dart::StoreExpandCard" o-- "projek_skripsi::core::models::m_storeMembership.dart::StoreMembershipModel"
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::card_expand_store_widget.dart::StoreExpandCard"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::dialog_widget.dart::DialogWidget" {
+  -ScreenshotController _controller
+  +dynamic onShowBarcode()
+  -dynamic _captureScreen()
+  +dynamic onShowLoading()
+  +dynamic onBuyConfirm()
+  +dynamic popupVoucher()
+}
+
+"projek_skripsi::application::buyer::dashboard::views::widgets::dialog_widget.dart::DialogWidget" o-- "screenshot::screenshot.dart::ScreenshotController"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::card_category_expand_store_widget.dart::CategoryExpandStoreCard" {
+  +StoreMembershipModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::dashboard::views::widgets::card_category_expand_store_widget.dart::CategoryExpandStoreCard" o-- "projek_skripsi::core::models::m_storeMembership.dart::StoreMembershipModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::card_category_expand_store_widget.dart::CategoryExpandStoreCard"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::image_carousel_widget.dart::ImageCarousel" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::image_carousel_widget.dart::ImageCarousel"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::card_category_widget.dart::CategoryCard" {
+  +String name
+  +String image
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::card_category_widget.dart::CategoryCard"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::card_nearby_store_widget.dart::NearbyStoreCard" {
+  +StoreMembershipModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::dashboard::views::widgets::card_nearby_store_widget.dart::NearbyStoreCard" o-- "projek_skripsi::core::models::m_storeMembership.dart::StoreMembershipModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::card_nearby_store_widget.dart::NearbyStoreCard"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::card_coupon_wdiget.dart::CouponCard" {
+  +StoreVoucherModel data
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::dashboard::views::widgets::card_coupon_wdiget.dart::CouponCard" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::card_coupon_wdiget.dart::CouponCard"
+
+class "projek_skripsi::application::buyer::dashboard::views::widgets::card_coupon_wdiget.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::dashboard::views::widgets::card_coupon_wdiget.dart::DescText"
+
+class "projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" {
+  +RxInt currentIndex
+  +TabController? tabsController
+  +RxInt activePage
+  +RxInt itemCount
+  +RxBool isLoadingCoupon
+  +RxString wordTextField
+  +List<Tab> tabs
+  +RxList<bool> isInvisible
+  +List<Image> lsImage
+  +RxList<StoreModel> lsStore
+  +RxList<StoreVoucherModel> lsVoucher
+  +RxList<StoreMembershipModel> lsStoreMembership
+  +RxList<CustomerVoucher> lsCustomerVoucher
+  +List<RxMap<String, dynamic>> lsMergeCompleteVoucher
+  +RxList<RxMap<String, dynamic>> lsFilterStore
+  +List<RxMap<String, dynamic>> lsFilter
+  +dynamic onInit()
+  +void onItemTapped()
+  +dynamic onGetDataStore()
+  +dynamic onGetDataVoucher()
+}
+
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "flutter::src::material::tab_controller.dart::TabController"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<bool>"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreModel>"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreVoucherModel>"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreMembershipModel>"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<CustomerVoucher>"
+"projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<RxMap<String, dynamic>>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController"
+
+class "projek_skripsi::application::buyer::voucher::views::screen::voucher_buyer_body.dart::VoucherBuyerBody" {
+  +VoucherBuyerController controller
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::voucher::views::screen::voucher_buyer_body.dart::VoucherBuyerBody" o-- "projek_skripsi::application::buyer::voucher::controllers::voucher_buyer_controller.dart::VoucherBuyerController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::voucher::views::screen::voucher_buyer_body.dart::VoucherBuyerBody"
+
+class "projek_skripsi::application::buyer::voucher::views::screen::voucher_buyer_page.dart::VoucherBuyerPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::voucher::views::screen::voucher_buyer_page.dart::VoucherBuyerPage"
+
+class "projek_skripsi::application::buyer::voucher::views::screen::Coupon::all_voucher_buyer_page.dart::AllVoucherBuyer" {
+  +List<RxMap<String, dynamic>> data
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::voucher::views::screen::Coupon::all_voucher_buyer_page.dart::AllVoucherBuyer"
+
+class "projek_skripsi::application::buyer::voucher::views::widgets::dialog_widget.dart::DialogVoucherShowBarcodeWidget" {
+  +dynamic onShowBarcode()
+}
+
+class "projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" {
+  +RxInt currentIndex
+  +RxBool isLoadingHistory
+  +dynamic accountId
+  +TabController? tabsController
+  +RxList<CustomerHistoryModel> lsHistory
+  +RxList<StoreModel> lsStore
+  +RxList<List<CustomerHistoryModel>> lsHistorySorted
+  +DateTime? currentDate
+  +List<Tab> tabs
+  +RxInt activePage
+  +List<Image> lsImage
+  +void onInit()
+  +dynamic onGetDataHistory()
+  +void onItemTapped()
+}
+
+"projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" o-- "flutter::src::material::tab_controller.dart::TabController"
+"projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<CustomerHistoryModel>"
+"projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<StoreModel>"
+"projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<List<CustomerHistoryModel>>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController"
+"get::get_state_manager::src::rx_flutter::rx_ticket_provider_mixin.dart::GetSingleTickerProviderStateMixin" <|-- "projek_skripsi::application::buyer::history::controllers::history_buyer_controller.dart::HistoryBuyerController"
+
+class "projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::HistoryBuyerTransaction" {
+  +CustomerHistoryModel cardValue
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::HistoryBuyerTransaction" o-- "projek_skripsi::authorization::data::models::m_customerHistory.dart::CustomerHistoryModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::HistoryBuyerTransaction"
+
+class "projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::HistoryBuyerVoucher" {
+  +CustomerHistoryModel cardValue
+  +Widget build()
+}
+
+"projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::HistoryBuyerVoucher" o-- "projek_skripsi::authorization::data::models::m_customerHistory.dart::CustomerHistoryModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::HistoryBuyerVoucher"
+
+class "projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::DescText" {
+  +String title
+  +String subtitle
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::history::views::widget::history_buyer_card.dart::DescText"
+
+class "projek_skripsi::application::buyer::history::views::screen::history_buyer_body.dart::HistoryBuyerBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::history::views::screen::history_buyer_body.dart::HistoryBuyerBody"
+
+class "projek_skripsi::application::buyer::history::views::screen::history_buyer_page.dart::HistoryBuyerPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::history::views::screen::history_buyer_page.dart::HistoryBuyerPage"
+
+class "projek_skripsi::application::buyer::history::views::screen::Coupon::all_history_page.dart::AllCouponHistory" {
+  +Widget build()
+  +String dateformater()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::history::views::screen::Coupon::all_history_page.dart::AllCouponHistory"
+
+class "projek_skripsi::application::buyer::account::controllers::account_controller.dart::BuyerAccountController" {
+  +Rx<BuyerModel> user
+  +RxBool isLoading
+  +Rx<StoreMembershipModel> mostCoinStoreMembership
+  +Rx<StoreMembershipModel> mostVoucherStoreMembership
+  +void onInit()
+  +void logout()
+  +dynamic assignUser()
+  +dynamic onGetInfographic()
+}
+
+"projek_skripsi::application::buyer::account::controllers::account_controller.dart::BuyerAccountController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<BuyerModel>"
+"projek_skripsi::application::buyer::account::controllers::account_controller.dart::BuyerAccountController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::application::buyer::account::controllers::account_controller.dart::BuyerAccountController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<StoreMembershipModel>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::application::buyer::account::controllers::account_controller.dart::BuyerAccountController"
+
+class "projek_skripsi::application::buyer::account::views::screens::account_page_body.dart::AccountPageBody" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::account::views::screens::account_page_body.dart::AccountPageBody"
+
+class "projek_skripsi::application::buyer::account::views::screens::account_page_body.dart::ContainerMenu" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::account::views::screens::account_page_body.dart::ContainerMenu"
+
+class "projek_skripsi::application::buyer::account::views::screens::account_page_body.dart::LogoutButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::account::views::screens::account_page_body.dart::LogoutButton"
+
+class "projek_skripsi::application::buyer::account::views::screens::account_best_info.dart::AccountBestInfo" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::account::views::screens::account_best_info.dart::AccountBestInfo"
+
+class "projek_skripsi::application::buyer::account::views::screens::account_page.dart::AccountPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::account::views::screens::account_page.dart::AccountPage"
+
+class "projek_skripsi::application::buyer::account::views::screens::acount_page_header.dart::AccountPageHeader" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::account::views::screens::acount_page_header.dart::AccountPageHeader"
+
+class "projek_skripsi::application::buyer::account::views::widgets::biggest_level.dart::BiggestLevel" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::application::buyer::account::views::widgets::biggest_level.dart::BiggestLevel"
+
+class "projek_skripsi::application::buyer::account::views::widgets::many_coupons.dart::ManyCoupons" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::account::views::widgets::many_coupons.dart::ManyCoupons"
+
+class "projek_skripsi::application::buyer::account::views::widgets::many_coins.dart::ManyCoins" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::application::buyer::account::views::widgets::many_coins.dart::ManyCoins"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::controllers::register_buyer_controller.dart::RegisterBuyerController" {
+  +GlobalKey<FormState> formkey
+  +RxBool isHiddenPassword
+  +TextEditingController fieldName
+  +TextEditingController fieldEmail
+  +TextEditingController fieldPassword
+  +TextEditingController fieldConfirmPassword
+  +TextEditingController fieldPhoneNumber
+  +BuyerAttachmentController attController
+  +void register()
+  +dynamic authentication()
+  +dynamic saveToCloudFirestore()
+}
+
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::register_buyer_controller.dart::RegisterBuyerController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::register_buyer_controller.dart::RegisterBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::register_buyer_controller.dart::RegisterBuyerController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::register_buyer_controller.dart::RegisterBuyerController" o-- "projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::register::buyer_register::controllers::register_buyer_controller.dart::RegisterBuyerController"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController" {
+  +RxBool isUpload
+  +RxString errorMsg
+  +RxString imgUrl
+  +RxString imgPath
+  +File selectedFile
+  +Reference storageRef
+  +void getPhotoFromCamera()
+  +void getPhotoFromGalery()
+  +dynamic uploadFileToFirebase()
+}
+
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController" o-- "dart::io::File"
+"projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController" o-- "firebase_storage::firebase_storage.dart::Reference"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::register::buyer_register::controllers::buyer_attacment_controller.dart::BuyerAttachmentController"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page.dart::BuyerRegisterPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page.dart::BuyerRegisterPage"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_footer.dart::RegisterPageFooter" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_footer.dart::RegisterPageFooter"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_header.dart::RegisterPageHeader" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_header.dart::RegisterPageHeader"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::RegisterPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::RegisterPageBody"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::ImageForm" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::ImageForm"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::Photo" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::Photo"
+
+class "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::RegisterButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::buyer_register::views::register_page_body.dart::RegisterButton"
+
+class "projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" {
+  +GlobalKey<FormState> formkey
+  +RxBool isHiddenPassword
+  +RxString errorMsg
+  +TextEditingController fieldName
+  +TextEditingController fieldEmail
+  +TextEditingController fieldPassword
+  +TextEditingController fieldConfirmPassword
+  +TextEditingController fieldPhoneNumber
+  +TextEditingController fieldAddress
+  +TextEditingController fieldTag
+  +MapsController mapController
+  +SellerAttachmentController attController
+  +RxList<dynamic> lsTag
+  +void onInit()
+  +void initTag()
+  +void register()
+  +dynamic authentication()
+  +dynamic saveToCloudFirestore()
+  +void onGetAddress()
+  +bool isTagValidate()
+  +List<dynamic> getTag()
+}
+
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "projek_skripsi::core::components::map::controllers::maps_controller.dart::MapsController"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxList<dynamic>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::register::seller_register::controllers::register_seller_controller.dart::RegisterSellerController"
+
+class "projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController" {
+  +RxBool isUpload
+  +RxString errorMsg
+  +RxString imgUrl
+  +RxString imgPath
+  +File selectedFile
+  +Reference storageRef
+  +void getPhotoFromCamera()
+  +void getPhotoFromGalery()
+  +dynamic uploadFileToFirebase()
+}
+
+"projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController" o-- "dart::io::File"
+"projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController" o-- "firebase_storage::firebase_storage.dart::Reference"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::register::seller_register::controllers::seller_attachment_controller.dart::SellerAttachmentController"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page.dart::SellerRegisterPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page.dart::SellerRegisterPage"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_footer.dart::RegisterPageFooter" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_footer.dart::RegisterPageFooter"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::RegisterPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::RegisterPageBody"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::ImageForm" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::ImageForm"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::Photo" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::Photo"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::TagForm" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::TagForm"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::TagItem" {
+  +String title
+  +bool isClick
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::TagItem"
+
+class "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::RegisterButton" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::register::seller_register::views::register_page_body.dart::RegisterButton"
+
+class "projek_skripsi::authorization::modules::login::seller_login::controllers::login_seller_controller.dart::LoginSellerController" {
+  +GlobalKey<FormState> formkeyLogin
+  +GlobalKey<FormState> formkeyResetPassword
+  +RxBool isHiddenPassword
+  +RxString errorMsg
+  +TextEditingController fieldEmail
+  +TextEditingController fieldPassword
+  +void login()
+  +void resetPassword()
+  +dynamic onGetDocId()
+  +dynamic onUpdateToken()
+  +dynamic isEmailSeller()
+}
+
+"projek_skripsi::authorization::modules::login::seller_login::controllers::login_seller_controller.dart::LoginSellerController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::authorization::modules::login::seller_login::controllers::login_seller_controller.dart::LoginSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::authorization::modules::login::seller_login::controllers::login_seller_controller.dart::LoginSellerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::authorization::modules::login::seller_login::controllers::login_seller_controller.dart::LoginSellerController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::login::seller_login::controllers::login_seller_controller.dart::LoginSellerController"
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::login_page_header.dart::LoginPageHeader" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::seller_login::views::login_page_header.dart::LoginPageHeader"
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::login_page_body.dart::LoginPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::login::seller_login::views::login_page_body.dart::LoginPageBody"
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::login_page_footer.dart::LoginPageFooter" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::seller_login::views::login_page_footer.dart::LoginPageFooter"
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::login_page.dart::SellerLoginPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::seller_login::views::login_page.dart::SellerLoginPage"
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::widgets::dialog_widget.dart::DialogWidget" {
+  +dynamic forgetPassword()
+}
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::widgets::dialog_widget.dart::TopModalBottom" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::seller_login::views::widgets::dialog_widget.dart::TopModalBottom"
+
+class "projek_skripsi::authorization::modules::login::seller_login::views::widgets::dialog_widget.dart::SubmitButton" {
+  +dynamic controller
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::seller_login::views::widgets::dialog_widget.dart::SubmitButton"
+
+class "projek_skripsi::authorization::modules::login::controllers::auth_controller.dart::AuthController" {
+  +FirebaseAuth auth
+  +Stream<User?> streamAuthStatus
+  +dynamic getUserRole()
+}
+
+"projek_skripsi::authorization::modules::login::controllers::auth_controller.dart::AuthController" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"projek_skripsi::authorization::modules::login::controllers::auth_controller.dart::AuthController" o-- "dart::async::Stream<User>"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::login::controllers::auth_controller.dart::AuthController"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::controllers::login_buyer_controller.dart::LoginBuyerController" {
+  +GlobalKey<FormState> formkeyLogin
+  +GlobalKey<FormState> formkeyResetPassword
+  +RxBool isHiddenPassword
+  +RxString errorMsg
+  +TextEditingController fieldEmail
+  +TextEditingController fieldPassword
+  +void login()
+  +void resetPassword()
+  +dynamic onGetDocId()
+  +dynamic onUpdateToken()
+  +dynamic isEmailSeller()
+}
+
+"projek_skripsi::authorization::modules::login::buyer_login::controllers::login_buyer_controller.dart::LoginBuyerController" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"projek_skripsi::authorization::modules::login::buyer_login::controllers::login_buyer_controller.dart::LoginBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"projek_skripsi::authorization::modules::login::buyer_login::controllers::login_buyer_controller.dart::LoginBuyerController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxString"
+"projek_skripsi::authorization::modules::login::buyer_login::controllers::login_buyer_controller.dart::LoginBuyerController" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "projek_skripsi::authorization::modules::login::buyer_login::controllers::login_buyer_controller.dart::LoginBuyerController"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::login_page_header.dart::LoginPageHeader" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::buyer_login::views::login_page_header.dart::LoginPageHeader"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::login_page_body.dart::LoginPageBody" {
+  +Widget build()
+}
+
+"get::get_state_manager::src::simple::get_view.dart::GetView" <|-- "projek_skripsi::authorization::modules::login::buyer_login::views::login_page_body.dart::LoginPageBody"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::login_page_footer.dart::LoginPageFooter" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::buyer_login::views::login_page_footer.dart::LoginPageFooter"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::wigets::dialog_widget.dart::DialogWidgetBuyer" {
+  +dynamic forgetPassword()
+}
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::wigets::dialog_widget.dart::TopModalBottom" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::buyer_login::views::wigets::dialog_widget.dart::TopModalBottom"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::wigets::dialog_widget.dart::SubmitButton" {
+  +dynamic controller
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::buyer_login::views::wigets::dialog_widget.dart::SubmitButton"
+
+class "projek_skripsi::authorization::modules::login::buyer_login::views::login_page.dart::BuyerLoginPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "projek_skripsi::authorization::modules::login::buyer_login::views::login_page.dart::BuyerLoginPage"
+
+class "projek_skripsi::authorization::data::models::m_store.dart::StoreModel" {
+  +String? address
+  +String? imgUrl
+  +String? name
+  +String? phoneNumber
+  +String? email
+  +String? token
+  +double? latitude
+  +double? longitude
+  +List<String>? lsTag
+  +String? id
+  +List<LevelModel> lsLevel
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::authorization::data::models::m_customerHistory.dart::CustomerHistoryModel" {
+  +int? coin
+  +DateTime? transactionDate
+  +int? exp
+  +String? storeId
+  +int? totalPrice
+  +int? totalCoin
+  +String? type
+  +String? id
+  +String? voucherid
+  +String? token
+  +StoreVoucherModel voucherModel
+  +StoreModel storeModel
+  +Map<String, dynamic> toJson()
+}
+
+"projek_skripsi::authorization::data::models::m_customerHistory.dart::CustomerHistoryModel" o-- "projek_skripsi::core::models::m_storeVoucher.dart::StoreVoucherModel"
+"projek_skripsi::authorization::data::models::m_customerHistory.dart::CustomerHistoryModel" o-- "projek_skripsi::authorization::data::models::m_store.dart::StoreModel"
+
+class "projek_skripsi::authorization::data::models::m_customer.dart::CustomerModel" {
+  +String? name
+  +String? phoneNumber
+  +String? email
+  +String? id
+  +String? token
+  +Map<String, dynamic> toJson()
+}
+
+class "projek_skripsi::authorization::data::models::m_buyer.dart::BuyerModel" {
+  +String? imgUrl
+  +String? name
+  +String? phoneNumber
+  +String? email
+  +String? id
+  +String? token
+  +DateTime? resetDate
+  +Map<String, dynamic> toJson()
+}
+
+
+@enduml

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "693044577668",
+    "project_id": "projekskripsi-9bfc6",
+    "storage_bucket": "projekskripsi-9bfc6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693044577668:android:ae4aaedbe961c4286c09d1",
+        "android_client_info": {
+          "package_name": "com.example.projek_skripsi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDomEeb_YOYU8pZ_2gTHTPuu-RNOfTJRC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
